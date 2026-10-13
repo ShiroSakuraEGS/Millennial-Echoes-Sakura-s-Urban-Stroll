@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "千禧迷音 (Millennial Echoes: Sakura's Urban Stroll)",
+  "version": "1.3",
+  "description": "融合 Hyperpop 與 Dreamcore 像素風的城市漫遊遊戲。1.3版全新優化 CSS 模組化架構、微調首頁重疊排版、修復 UI 失焦卡死，並完整實作「主線與回顧分離機制」，伴您在千禧幻城中邂逅奇遇、掌握 AIGC 秘笈！",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icon/logo.png",
+    "48": "icon/logo.png",
+    "128": "icon/logo.png"
+  },
+  "action": {
+    "default_title": "開啟千禧迷音遊戲",
+    "default_icon": "icon/logo.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "character/小櫻/*.png",
+        "character/咖啡廳老闆娘/*.png",
+        "character/天才創作家/*.png",
+        "map/*.png",
+        "bgm/*.mp3",
+        "item/*.png",
+        "icon/*.png",
+        "Story/*/*.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}

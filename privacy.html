@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>千禧迷音 — 隱私權政策</title>
+  <!-- 嵌入 Google Site 時移除此 meta，Google Site 本身不允許覆寫 X-Frame -->
+  <meta name="description" content="《千禧迷音》Chrome 擴充功能隱私權政策說明。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==================== 全域設定 ==================== */
+    :root {
+      --neon-pink:   #ff007f;
+      --neon-cyan:   #00ffff;
+      --neon-purple: #bd00ff;
+      --pastel-pink: #ffb3d9;
+      --bg-dark:     #07020d;
+      --bg-card:     #0d0218;
+      --text-body:   #cddff0;
+      --text-dim:    #8899aa;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255, 0, 127, 0.03) 0px,
+          rgba(255, 0, 127, 0.03) 1px,
+          transparent 1px,
+          transparent 6px
+        );
+      color: var(--text-body);
+      font-family: 'Noto Sans TC', 'zpix', sans-serif;
+      font-size: 15px;
+      line-height: 1.9;
+      min-height: 100vh;
+    }
+
+    /* ==================== 頁面容器 ==================== */
+    .page-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ==================== 頁首 Header ==================== */
+    .site-header {
+      text-align: center;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(255, 0, 127, 0.25);
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .site-header::after {
+      content: '';
+      display: block;
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--neon-pink), transparent);
+      box-shadow: 0 0 10px var(--neon-pink);
+      margin: 8px auto 0;
+    }
+
+    .header-tag {
+      font-family: 'Pixelify Sans', monospace;
+      font-size: 0.78rem;
+      color: var(--neon-pink);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 12px;
+      text-shadow: 0 0 8px var(--neon-pink);
+    }
+
+    .header-title {
+      font-family: 'Pixelify Sans', monospace;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow:
+        0 0 10px var(--neon-pink),
+        0 0 20px rgba(255, 0, 127, 0.4);
+      margin-bottom: 6px;
+    }
+
+    .header-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+
+    /* ==================== 更新日期 ==================== */
+    .last-updated {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 0, 127, 0.08);
+      border: 1px solid rgba(255, 0, 127, 0.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.78rem;
+      color: var(--pastel-pink);
+      margin-bottom: 36px;
+    }
+
+    .last-updated::before {
+      content: '◆';
+      font-size: 0.6rem;
+      color: var(--neon-pink);
+    }
+
+    /* ==================== 章節卡片 ==================== */
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 0, 127, 0.2);
+      border-radius: 12px;
+      padding: 28px 28px 24px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .section-card:hover {
+      border-color: rgba(255, 0, 127, 0.5);
+      box-shadow:
+        0 0 20px rgba(255, 0, 127, 0.1),
+        inset 0 0 20px rgba(255, 0, 127, 0.04);
+    }
+
+    /* 左側裝飾條 */
+    .section-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--neon-pink), var(--neon-purple));
+      box-shadow: 0 0 8px var(--neon-pink);
+    }
+
+    .section-number {
+      font-family: 'Pixelify Sans', monospace;
+      font-size: 0.7rem;
+      color: var(--neon-pink);
+      letter-spacing: 2px;
+      text-shadow: 0 0 5px var(--neon-pink);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title .icon {
+      font-size: 1.1rem;
+    }
+
+    .section-body {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.85;
+    }
+
+    .section-body p + p {
+      margin-top: 10px;
+    }
+
+    /* ==================== 重點標記 ==================== */
+    .highlight {
+      color: var(--pastel-pink);
+      font-weight: 700;
+    }
+
+    .highlight-cyan {
+      color: var(--neon-cyan);
+      font-weight: 700;
+      text-shadow: 0 0 4px rgba(0, 255, 255, 0.4);
+    }
+
+    /* ==================== 清單 ==================== */
+    .privacy-list {
+      list-style: none;
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .privacy-list li {
+      display: flex;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text-body);
+    }
+
+    .privacy-list li::before {
+      content: '▸';
+      color: var(--neon-pink);
+      flex-shrink: 0;
+      margin-top: 2px;
+      text-shadow: 0 0 5px var(--neon-pink);
+    }
+
+    /* ==================== 強調資訊框 ==================== */
+    .callout-box {
+      background: rgba(0, 255, 255, 0.04);
+      border: 1px solid rgba(0, 255, 255, 0.25);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 0.88rem;
+      color: var(--text-body);
+      position: relative;
+    }
+
+    .callout-box::before {
+      content: '💡 TIP';
+      font-family: 'Pixelify Sans', monospace;
+      font-size: 0.7rem;
+      color: var(--neon-cyan);
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* ==================== 分隔線 ==================== */
+    .divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 0, 127, 0.2), transparent);
+      margin: 8px 0 24px;
+    }
+
+    /* ==================== 聯絡區塊 ==================== */
+    .contact-section {
+      text-align: center;
+      padding: 28px;
+      background: rgba(255, 0, 127, 0.04);
+      border: 1px solid rgba(255, 0, 127, 0.2);
+      border-radius: 12px;
+      margin-top: 12px;
+    }
+
+    .contact-section p {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    .contact-section .title {
+      font-family: 'Pixelify Sans', monospace;
+      font-size: 0.85rem;
+      color: var(--neon-pink);
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      display: block;
+      text-shadow: 0 0 6px var(--neon-pink);
+    }
+
+    /* ==================== 頁尾 Footer ==================== */
+    .site-footer {
+      text-align: center;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .site-footer p {
+      font-family: 'Pixelify Sans', monospace;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+
+    .site-footer .neon-text {
+      color: var(--neon-pink);
+      text-shadow: 0 0 6px var(--neon-pink);
+    }
+
+    /* ==================== 頂部掃描線裝飾 ==================== */
+    @keyframes scanDown {
+      0%   { top: -2px; }
+      100% { top: 100%; }
+    }
+
+    .scan-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255, 0, 127, 0.4), transparent);
+      animation: scanDown 4s linear infinite;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ==================== Google Site 嵌入相容 ==================== */
+    /* 可在 Google Site 自訂 HTML 區塊中以 iframe 嵌入此頁 */
+    @media (max-width: 600px) {
+      .page-wrapper { padding: 24px 16px 60px; }
+      .header-title { font-size: 1.5rem; }
+      .section-card { padding: 20px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 掃描線動畫效果 -->
+  <div class="scan-line"></div>
+
+  <div class="page-wrapper">
+
+    <!-- ===== 頁首 ===== -->
+    <header class="site-header">
+      <div class="header-tag">Privacy Policy ◆ 隱私權政策</div>
+      <h1 class="header-title">千禧迷音</h1>
+      <p class="header-subtitle">Millennial Echoes: Sakura's Urban Stroll</p>
+    </header>
+
+    <!-- ===== 更新日期 ===== -->
+    <div style="margin-bottom: 32px;">
+      <span class="last-updated">最後更新日期：2026 年 7 月 2 日</span>
+    </div>
+
+    <!-- ===== 第 1 節：前言 ===== -->
+    <section class="section-card" id="intro">
+      <span class="section-number">SECTION 01</span>
+      <h2 class="section-title"><span class="icon">🌸</span> 前言</h2>
+      <div class="section-body">
+        <p>
+          感謝您使用《千禧迷音》（Millennial Echoes: Sakura's Urban Stroll）——一款專為 Google Chrome 設計的 2D 像素風城市探索教育遊戲。
+        </p>
+        <p>
+          本隱私權政策旨在向您清楚說明，本擴充功能在您使用過程中對資料的處理方式。我們深信，<span class="highlight">您的資料應屬於您</span>，因此本遊戲採用了業界最嚴格的隱私保護設計——即完全不收集任何個人資料。
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== 第 2 節：資料收集 ===== -->
+    <section class="section-card" id="data-collection">
+      <span class="section-number">SECTION 02</span>
+      <h2 class="section-title"><span class="icon">🔒</span> 資料收集聲明</h2>
+      <div class="section-body">
+        <p>《千禧迷音》<span class="highlight">不收集</span>以下任何資料：</p>
+        <ul class="privacy-list" style="margin-top: 14px;">
+          <li>個人身份資訊（姓名、電子郵件、電話等）</li>
+          <li>瀏覽器歷史紀錄或瀏覽行為</li>
+          <li>裝置資訊或位置資訊</li>
+          <li>使用時間或使用習慣統計數據</li>
+          <li>任何形式的遙測或匿名資料</li>
+        </ul>
+        <div class="callout-box">
+          本擴充功能在技術層面上<span class="highlight-cyan">不具備任何網路資料傳輸能力</span>，所有遊戲邏輯皆在您的本機瀏覽器環境中執行，不會與任何外部伺服器通訊。
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 第 3 節：本機存檔 ===== -->
+    <section class="section-card" id="local-storage">
+      <span class="section-number">SECTION 03</span>
+      <h2 class="section-title"><span class="icon">💾</span> 本機存檔說明</h2>
+      <div class="section-body">
+        <p>
+          為了提供「關閉後無縫繼續」的遊戲體驗，本擴充功能會在您的<span class="highlight">本機瀏覽器 localStorage</span> 中儲存以下純遊戲進度資訊：
+        </p>
+        <ul class="privacy-list">
+          <li><span class="highlight">玩家位置</span>：當前地圖名稱（map1 / map2）、X 軸座標、面朝方向（左/右）。</li>
+          <li><span class="highlight">劇情進度</span>：已閱讀的最大場景索引（用於鎖定/解鎖「劇情回顧」章節）。</li>
+          <li><span class="highlight">首次遊玩標記</span>：用於判斷是否跳過開場序章（`hasPlayed`）。</li>
+          <li><span class="highlight">關係劇情解鎖標記</span>：用於記錄與 NPC 的互動關係與解鎖狀態（`hasCreatorStory`）。</li>
+        </ul>
+        <p style="margin-top: 14px;">
+          以上所有資料：
+        </p>
+        <ul class="privacy-list">
+          <li>僅存於您的裝置本機，<span class="highlight">絕不上傳至任何外部伺服器</span>。</li>
+          <li>可隨時至 Chrome 擴充功能管理頁面（`chrome://extensions/`）移除本擴充功能，即可一併清除所有本機資料。</li>
+          <li>亦可在瀏覽器「清除瀏覽資料」中選擇清除「網站資料」來手動刪除。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 第 4 節：第三方連結 ===== -->
+    <section class="section-card" id="third-party">
+      <span class="section-number">SECTION 04</span>
+      <h2 class="section-title"><span class="icon">🔗</span> 第三方連結</h2>
+      <div class="section-body">
+        <p>
+          當您在遊戲中完成特定章節劇情後，「AIGC 工具庫」功能會解鎖部分 AI 工具的外部連結，例如 ChatGPT、Midjourney、Canva、Nano banana 等。
+        </p>
+        <p>
+          點擊這些連結時，您的瀏覽器將由<span class="highlight">您主動跳轉</span>至對應的第三方官方網站。請注意：
+        </p>
+        <ul class="privacy-list">
+          <li>本擴充功能<span class="highlight">不會</span>在點擊連結時傳遞任何您的個人資料至第三方。</li>
+          <li>您進入第三方網站後，該網站的隱私權政策將適用於您的後續行為，請自行參閱各網站的隱私政策。</li>
+          <li>所有外部連結跳轉行為均由您<span class="highlight">主動點擊</span>觸發，本擴充功能不會自動後台訪問任何網站。</li>
+        </ul>
+        <div class="callout-box">
+          工具圖示透過 Google Favicon 服務（`google.com/s2/favicons`）動態抓取，此為唯一對外的資源請求，僅用於顯示工具品牌圖示，不傳遞任何用戶資料。
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 第 5 節：字型服務 ===== -->
+    <section class="section-card" id="fonts">
+      <span class="section-number">SECTION 05</span>
+      <h2 class="section-title"><span class="icon">✏️</span> 外部字型服務</h2>
+      <div class="section-body">
+        <p>
+          本遊戲從 Google Fonts 載入 <span class="highlight-cyan">Pixelify Sans</span> 像素字型，以呈現遊戲的像素藝術風格。
+        </p>
+        <p>
+          此連線為標準的 CDN 字型資源請求。如您對 Google Fonts 的資料處理有疑慮，可參閱 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="color: var(--neon-cyan); text-decoration: none;">Google 隱私權政策</a>。
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== 第 6 節：兒童隱私 ===== -->
+    <section class="section-card" id="children">
+      <span class="section-number">SECTION 06</span>
+      <h2 class="section-title"><span class="icon">👧</span> 兒童隱私保護</h2>
+      <div class="section-body">
+        <p>
+          本遊戲以兒童及青少年為主要目標受眾之一。由於本擴充功能<span class="highlight">完全不收集任何個人資料</span>，亦不包含任何帳號註冊、用戶識別或行為追蹤功能，因此天然符合 COPPA（兒童線上隱私保護法）的精神與要求。
+        </p>
+        <p>
+          我們鼓勵家長或監護人陪同兒童一同探索本遊戲，享受安全、無廣告、無資料收集的純淨遊戲體驗。
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== 第 7 節：政策變更 ===== -->
+    <section class="section-card" id="changes">
+      <span class="section-number">SECTION 07</span>
+      <h2 class="section-title"><span class="icon">📋</span> 政策變更</h2>
+      <div class="section-body">
+        <p>
+          若本隱私權政策有任何重大變更，我們將更新本頁面頂部的「最後更新日期」，並在遊戲更新日誌中說明。建議您在安裝新版本時，定期查閱本頁面以了解最新的隱私保護說明。
+        </p>
+        <p>
+          繼續使用本擴充功能即視為您同意當時有效的隱私權政策。
+        </p>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ===== 聯絡資訊 ===== -->
+    <div class="contact-section">
+      <span class="title">✉ CONTACT US</span>
+      <p>如您對本隱私權政策有任何問題或疑慮，</p>
+      <p>歡迎透過以下方式與我們聯絡：</p>
+      <div style="margin-top: 16px; margin-bottom: 8px;">
+        <a href="mailto:ai114364136@gmail.com" style="
+          display: inline-block;
+          background: rgba(255, 0, 127, 0.08);
+          border: 1px solid rgba(255, 0, 127, 0.4);
+          border-radius: 8px;
+          color: var(--neon-pink);
+          text-decoration: none;
+          padding: 10px 28px;
+          font-family: 'Pixelify Sans', 'Noto Sans TC', sans-serif;
+          font-size: 0.9rem;
+          font-weight: bold;
+          text-shadow: 0 0 5px var(--neon-pink);
+          box-shadow: 0 0 10px rgba(255, 0, 127, 0.1);
+          transition: all 0.3s ease;
+        " onmouseover="this.style.background='rgba(255, 0, 127, 0.2)'; this.style.borderColor='var(--neon-pink)'; this.style.boxShadow='0 0 15px rgba(255, 0, 127, 0.3)';" onmouseout="this.style.background='rgba(255, 0, 127, 0.08)'; this.style.borderColor='rgba(255, 0, 127, 0.4)'; this.style.boxShadow='0 0 10px rgba(255, 0, 127, 0.1)';">
+          ✉ 聯絡製作組 (Email Us)
+        </a>
+      </div>
+      <p style="margin-top: 12px; color: var(--pastel-pink); font-weight: 700;">
+        《千禧迷音》製作組
+      </p>
+    </div>
+
+    <!-- ===== 頁尾 ===== -->
+    <footer class="site-footer">
+      <p>© 2024 <span class="neon-text">千禧迷音 Millennial Echoes</span>. All Rights Reserved.</p>
+      <p style="margin-top: 6px;">本頁面可透過 iframe 嵌入至 Google Sites 中使用。</p>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+</body>
+</html>

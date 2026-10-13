@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - 訊號迷失 | 千禧迷音</title>
+  <link rel="icon" type="image/png" href="icon/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07020d;
+      --neon-pink: #ff007f;
+      --neon-cyan: #00ffff;
+      --neon-purple: #bd00ff;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: radial-gradient(circle at center, #1b002c 0%, #07020d 100%);
+      color: #fff;
+      font-family: 'Pixelify Sans', monospace, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+    .glitch-code {
+      font-size: 80px;
+      color: var(--neon-pink);
+      text-shadow: 0 0 10px var(--neon-pink), 0 0 20px #bd00ff;
+      margin-bottom: 10px;
+      font-weight: bold;
+      animation: pulse 1.5s infinite alternate;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); filter: drop-shadow(0 0 8px var(--neon-pink)); }
+      100% { transform: scale(1.04); filter: drop-shadow(0 0 20px var(--neon-purple)); }
+    }
+    h1 {
+      font-size: 24px;
+      color: var(--neon-cyan);
+      margin-bottom: 16px;
+      text-shadow: 0 0 8px var(--neon-cyan);
+      letter-spacing: 2px;
+    }
+    p {
+      color: #ffb3d9;
+      font-size: 16px;
+      margin-bottom: 24px;
+      max-width: 380px;
+      line-height: 1.6;
+    }
+    .countdown-text {
+      font-size: 14px;
+      color: #8899aa;
+      margin-bottom: 24px;
+    }
+    a.back-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: rgba(255, 0, 127, 0.2);
+      border: 2px solid var(--neon-pink);
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 4px;
+      box-shadow: 0 0 12px rgba(255, 0, 127, 0.5);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    a.back-btn:hover {
+      background: var(--neon-pink);
+      box-shadow: 0 0 24px var(--neon-pink);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="glitch-code">404</div>
+  <h1>[ SIGNAL LOST / 訊號遺失 ]</h1>
+  <p>此頻道不存在或已被幻城防火牆阻截... 請返回主頻道。</p>
+  <div class="countdown-text">將於 <span id="sec">5</span> 秒後自動導回遊戲首頁...</div>
+  <a href="./" class="back-btn">◀ 立即返回遊戲首頁</a>
+
+  <script>
+    // 5 秒後自動轉址回根目錄 index.html
+    let count = 5;
+    const secEl = document.getElementById('sec');
+    const timer = setInterval(() => {
+      count--;
+      if (secEl) secEl.textContent = count;
+      if (count <= 0) {
+        clearInterval(timer);
+        window.location.href = './';
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

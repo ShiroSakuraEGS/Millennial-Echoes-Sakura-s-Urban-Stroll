@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>千禧迷音 (Millennium Echoes) - 像素網頁探索遊戲</title>
+  <link rel="icon" type="image/png" href="icon/logo.png">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/start-screen.css">
+  <link rel="stylesheet" href="css/story-system.css">
+  <link rel="stylesheet" href="css/hud-menu.css">
+  <link rel="stylesheet" href="css/ieye-notebook.css">
+  <link rel="stylesheet" href="css/components.css">
+  <!-- 引入未來感與可愛風的像素字型 (Pixelify Sans) -->
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- SEO 與社群分享 Open Graph / Twitter 卡片 (GitHub Pages 部署優化) -->
+  <meta name="description" content="千禧迷音 (Millennium Echoes) - 復古像素風 Cyberpunk x Dreamcore 沉浸式網頁探索遊戲，伴隨小櫻漫步幻城街頭。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="千禧迷音 (Millennium Echoes) - 像素網頁探索遊戲">
+  <meta property="og:description" content="復古像素風 Cyberpunk x Dreamcore 沉浸式網頁探索遊戲，探索小櫻花的回憶與幻城，解鎖 AIGC 秘笈。">
+  <meta property="og:image" content="icon/title.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="千禧迷音 (Millennium Echoes) - 像素網頁探索遊戲">
+  <meta name="twitter:description" content="復古像素風 Cyberpunk x Dreamcore 沉浸式網頁探索遊戲，探索小櫻花的回憶與幻城，解鎖 AIGC 秘笈。">
+  <meta name="twitter:image" content="icon/title.png">
+  <meta name="theme-color" content="#07020d">
+</head>
+
+<body>
+  <div class="game-container">
+    <header>
+      <div class="header-content">
+        <div class="logo-title-group">
+          <img src="icon/logo.png" alt="logo" class="game-logo">
+          <h1 class="game-title">千禧迷音</h1>
+        </div>
+        <button id="helpBtn" class="help-btn">♥</button>
+      </div>
+    </header>
+
+    <div class="canvas-wrapper">
+      <canvas id="gameCanvas" width="400" height="500"></canvas>
+
+      <!-- 地點名稱顯示 (Location Title Overlay) -->
+      <div id="locationOverlay" class="location-overlay hidden">
+        <span class="location-icon">📍</span>
+        <span id="locationTitle" class="location-title"></span>
+      </div>
+
+      <!-- 地圖左右邊緣暗角濾鏡 (Dark Filter) -->
+      <div class="map-edge-dark-filter"></div>
+
+      <!-- 劃片轉場場景切換遮罩 (Slide Transition Overlay) -->
+      <div id="slideTransitionOverlay" class="slide-transition-overlay"></div>
+
+      <!-- IEarPod 按鈕 (位於左下角，預設隱藏) -->
+      <button id="earpodBtn" class="earpod-btn hidden" title="IEarPod">
+        <img src="item/earpod.png" alt="IEarPod">
+      </button>
+
+      <!-- 筆記本按鈕 (位於正中間下方，預設隱藏) -->
+      <button id="notebookBtn" class="notebook-btn hidden" title="筆記本">
+        <img src="item/Note.png" alt="筆記本">
+      </button>
+
+      <!-- IEYE 智慧隱形眼鏡按鈕 (位於右下角，預設隱藏) -->
+      <button id="ieyeBtn" class="ieye-btn hidden" title="IEYE">
+        <img src="item/IEYE.png" alt="IEYE">
+      </button>
+
+      <!-- 智能耳機音樂播放面板 -->
+      <div id="playlistModal" class="playlist-modal hidden">
+        <div class="playlist-content">
+          <h2>🎧 I EARPOD 🎧</h2>
+          <ul class="song-list">
+            <li class="song-item active" data-src="bgm/AI 説要 City Walk.mp3">
+              <span class="play-status">▶</span> AI 說要 City Walk
+            </li>
+            <li class="song-item" data-src="bgm/AI 説要 play game!.mp3">
+              <span class="play-status"></span> AI 說要 play game!
+            </li>
+          </ul>
+          <div class="audio-controls">
+            <button id="playPauseBtn" class="music-action-btn">暫停</button>
+            <div class="volume-container">
+              <span>🔊</span>
+              <input type="range" id="volumeSlider" min="0" max="100" value="55" class="volume-slider">
+            </div>
+          </div>
+          <button id="closePlaylistBtn" class="close-btn">關閉</button>
+        </div>
+      </div>
+
+      <!-- 互動式操作說明彈窗 -->
+      <div id="helpModal" class="help-modal hidden">
+        <div class="modal-content">
+          <h2>🏥 𝘚𝘛𝘈𝘛𝘜𝘚: 𝘖𝘗𝘌𝘙𝘈𝘛𝘐𝘖𝘕 💉</h2>
+          <div class="controls-grid">
+            <div class="control-key">W / Space</div>
+            <div class="control-desc">跳躍 (可控制跳躍方向)</div>
+            <div class="control-key">A</div>
+            <div class="control-desc">向左移動</div>
+            <div class="control-key">S</div>
+            <div class="control-desc">向下蹲下/快速下墜</div>
+            <div class="control-key">D</div>
+            <div class="control-desc">向右移動</div>
+          </div>
+          <button id="closeHelpBtn" class="close-btn">確認</button>
+        </div>
+      </div>
+
+      <!-- 開始畫面 -->
+      <div id="startScreen" class="start-screen hidden">
+        <div class="start-overlay"></div>
+        <img src="icon/title.png" alt="遊戲標題" class="start-title">
+        <div class="start-btn-group">
+          <button id="startGameBtn" class="start-game-btn">開始遊戲</button>
+          <button id="startAigcToolsBtn" class="start-shortcut-btn">AIGC工具庫</button>
+          <button id="startAigcNotebookBtn" class="start-shortcut-btn">AIGC秘笈</button>
+        </div>
+        <!-- 開始畫面音樂按鈕（左下角） -->
+        <button id="startMusicBtn" class="start-music-btn" title="音樂播放">
+          <img src="item/earpod.png" alt="音樂">
+        </button>
+      </div>
+
+      <!-- IEYE 智慧隱形眼鏡 HUD 面板 -->
+      <div id="ieyeModal" class="ieye-modal hidden">
+        <!-- 眼球開啟動畫遮罩 -->
+        <div class="ieye-iris"></div>
+        <!-- HUD 內容 -->
+        <div class="ieye-hud">
+          <div class="ieye-hud-header">
+            <div class="ieye-logo-row">
+              <img src="item/IEYE.png" alt="IEYE" class="ieye-logo">
+              <span class="ieye-brand">I<span class="ieye-brand-accent">EYE</span></span>
+            </div>
+            <div class="ieye-status-row">
+              <span class="ieye-dot"></span> SYSTEM ONLINE
+            </div>
+          </div>
+          <div class="ieye-divider"></div>
+
+          <!-- 九宮格格式按鈕 -->
+          <div class="ieye-grid-menu">
+            <button class="ieye-grid-item" id="ieyeBackToStartBtn">
+              <img src="icon/logo.png" alt="回到開始頁面" class="ieye-grid-icon">
+              <span class="ieye-grid-label">回到開始頁面</span>
+            </button>
+            <button class="ieye-grid-item" id="ieyeReadStoryBtn">
+              <img src="item/read story.png" alt="劇情回顧" class="ieye-grid-icon">
+              <span class="ieye-grid-label">劇情回顧</span>
+            </button>
+            <!-- AIGC工具庫按鈕 -->
+            <button class="ieye-grid-item" id="ieyeAigcToolsBtn">
+              <img src="item/box.png" alt="AIGC工具庫" class="ieye-grid-icon">
+              <span class="ieye-grid-label">AIGC工具庫</span>
+            </button>
+            <!-- 圖鑑按鈕 -->
+            <button class="ieye-grid-item" id="ieyeGuideBtn">
+              <img src="item/Illustrated Guide.png" alt="圖鑑" class="ieye-grid-icon">
+              <span class="ieye-grid-label">圖鑑</span>
+            </button>
+            <button class="ieye-grid-item disabled">
+              <span class="ieye-grid-placeholder">+</span>
+              <span class="ieye-grid-label">視覺校準</span>
+            </button>
+            <button class="ieye-grid-item disabled">
+              <span class="ieye-grid-placeholder">+</span>
+              <span class="ieye-grid-label">環境掃描</span>
+            </button>
+            <button class="ieye-grid-item disabled">
+              <span class="ieye-grid-placeholder">+</span>
+              <span class="ieye-grid-label">音訊增益</span>
+            </button>
+            <button class="ieye-grid-item disabled">
+              <span class="ieye-grid-placeholder">+</span>
+              <span class="ieye-grid-label">記憶載入</span>
+            </button>
+            <button class="ieye-grid-item disabled">
+              <span class="ieye-grid-placeholder">+</span>
+              <span class="ieye-grid-label">系統資訊</span>
+            </button>
+          </div>
+
+          <div class="ieye-divider"></div>
+          <button id="closeIeyeBtn" class="ieye-close-btn">[ CLOSE LENS ]</button>
+        </div>
+      </div>
+      <!-- 劇情回顧列表選單 -->
+      <div id="storyListModal" class="story-list-modal hidden">
+        <div class="story-list-content">
+          <h2>📖 𝘚𝘛𝘖𝘙𝘠 𝘈𝘙𝘊𝘏𝘐𝘝𝘌 📖</h2>
+          <div class="story-list-grid">
+            <button class="story-list-item" data-scene="0">
+              <span class="story-item-tag">SCENE 0-1</span>
+              <span class="story-item-title">小櫻的安樂窩</span>
+            </button>
+            <button class="story-list-item" data-scene="1">
+              <span class="story-item-tag">SCENE 0-2</span>
+              <span class="story-item-title">幻城廣告與憔悴</span>
+            </button>
+            <button class="story-list-item" data-scene="2">
+              <span class="story-item-tag">SCENE 0-3</span>
+              <span class="story-item-title">落選信與漂流瓶</span>
+            </button>
+            <button class="story-list-item" data-scene="3">
+              <span class="story-item-tag">SCENE 0-4</span>
+              <span class="story-item-title">推開大門散步去</span>
+            </button>
+          </div>
+          <button id="closeStoryListBtn" class="close-btn" style="margin-top: 15px;">取消</button>
+        </div>
+      </div>
+
+      <!-- 筆記本面板 -->
+      <div id="notebookModal" class="notebook-modal hidden">
+        <!-- 筆記本全螢幕背景圖 -->
+        <img class="notebook-bg-img" src="item/note anime/Note page 0.png" alt="筆記本背景">
+
+        <!-- 關閉按鈕，置於右上角 -->
+        <button id="closeNotebookBtn" class="notebook-close-btn">✕</button>
+
+        <!-- 秘籍內容顯示區域，精確定位在 x: 104~311, y: 106~410 -->
+        <div class="notebook-inner-area">
+          <div class="notebook-area-title">筆記本</div>
+          <div id="notebookPageContent" class="notebook-page-content">
+            <!-- 內容將由 JavaScript 動態生成 -->
+          </div>
+        </div>
+
+        <!-- 上一頁 / 下一頁按鈕，分別在左右側，定位在 y: 414~444, x: 104~288 -->
+        <button id="notebookPrevBtn" class="notebook-page-btn notebook-prev-btn">◀</button>
+        <button id="notebookNextBtn" class="notebook-page-btn notebook-next-btn">▶</button>
+      </div>
+
+      <!-- 互動對話與選項面板 -->
+      <div id="interactionModal" class="interaction-modal">
+        <div class="interaction-title" id="interactionNpcName">NPC</div>
+        <div class="interaction-text" id="interactionDialogue">...</div>
+        <div class="interaction-options" id="interactionOptions">
+          <!-- 選項按鈕會在這裡動態生成 -->
+        </div>
+      </div>
+
+      <!-- AIGC 工具庫智能面板 -->
+      <div id="aigcModal" class="aigc-modal hidden">
+        <div class="aigc-content">
+          <h2>👾 AIGC ARCHIVE 👾</h2>
+          <div class="aigc-grid" id="aigcGrid">
+            <!-- 由 JavaScript 動態生成 -->
+          </div>
+          <button id="closeAigcBtn" class="close-btn" style="margin-top: 15px;">關閉</button>
+        </div>
+      </div>
+
+      <!-- 圖鑑智能面板 -->
+      <div id="guideModal" class="guide-modal hidden">
+        <div class="guide-content">
+          <h2>🗂️ ILLUSTRATED GUIDE 🗂️</h2>
+          <div class="guide-tabs">
+            <button class="guide-tab-btn active" id="tabItems">物件</button>
+            <button class="guide-tab-btn" id="tabPlaces">地標</button>
+          </div>
+          <div class="guide-list-container" id="guideListContainer">
+            <!-- 由 JavaScript 動態生成 -->
+          </div>
+          <button id="closeGuideBtn" class="close-btn" style="margin-top: 15px;">關閉</button>
+        </div>
+      </div>
+
+      <!-- 全新獨立的圖鑑詳細介紹大彈窗 (預設隱藏) -->
+      <div id="guideDetailModal" class="guide-detail-modal hidden">
+        <div class="guide-detail-modal-content">
+          <button id="closeGuideDetailBtn" class="detail-close-btn">✕</button>
+          <div class="detail-layout">
+            <!-- 上半部：放大像素大圖區 -->
+            <div class="detail-media-container">
+              <img id="modalDetailIcon" class="modal-detail-icon" src="" alt="">
+            </div>
+            <!-- 下半部：可滾動的文字故事區 -->
+            <div class="detail-text-container">
+              <h2 id="modalDetailName" class="detail-name">地標名稱</h2>
+              <div id="modalDetailDesc" class="detail-desc">地標簡介</div>
+              <div class="detail-divider"></div>
+              <div id="modalDetailStory" class="detail-story">詳細背景故事...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 解鎖通知智能彈窗 -->
+      <div id="notificationModal" class="notification-modal hidden">
+        <div class="notification-content">
+          <div class="notification-header">
+            <span class="notification-title">🔓 SYSTEM UNLOCKED 🔓</span>
+          </div>
+          <div class="notification-body" id="notificationBody">
+            <!-- 由 JavaScript 動態注入解鎖訊息 -->
+          </div>
+          <button id="closeNotificationBtn" class="glow-btn">OK</button>
+        </div>
+      </div>
+
+      <!-- 序章 Prologue -->
+      <div id="prologueScreen" class="prologue-screen hidden">
+        <div class="prologue-bg-layer" id="prologueBg"></div>
+        <div class="prologue-tech-filter"></div>
+        <div class="prologue-scene-tag" id="prologueSceneTag">0-1</div>
+        <!-- 跳過劇情按鈕 -->
+        <button id="prologueSkipBtn" class="prologue-skip-btn">SKIP ➔</button>
+        <div class="prologue-textbox">
+          <div id="prologueSpeaker" class="prologue-speaker hidden"></div>
+          <div class="prologue-corner-tl"></div>
+          <div class="prologue-corner-tr"></div>
+          <div class="prologue-corner-bl"></div>
+          <div class="prologue-corner-br"></div>
+          <div class="prologue-text-content" id="prologueText"></div>
+          <div class="prologue-next-hint" id="prologueNextHint">
+            <span class="hint-blink">▶</span> SPACE / CLICK
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="story_data.js"></script>
+  <script src="game.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+# 作業系統產生的檔案
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# 編輯器與 IDE 設定檔
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 日誌與臨時檔案
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.temp/
+.cache/
